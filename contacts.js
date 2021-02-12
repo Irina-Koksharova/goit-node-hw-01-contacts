@@ -1,10 +1,10 @@
 import * as fs from 'fs/promises'
 import * as path from 'path'
-import shortid from 'shortid';
+import shortid from 'shortid'
 import createDirname from './lib/dirname.js'
+import handleError from './lib/handleError.js'
 
 const __dirname = createDirname(import.meta.url)
-
 const contactsPath = path.join(__dirname, 'db', 'contacts.json')
 
 async function listContacts() {
@@ -14,7 +14,7 @@ async function listContacts() {
       console.log('Here is your contacts list')
       console.table(contacts)
   } catch (error) {
-      console.log(error.message)
+      handleError(error)
     }
 }
 
@@ -26,7 +26,7 @@ async function getContactById(contactId) {
             ? console.table(selectedContact)
             : console.log('You have no such contact')
     } catch (error) {
-        console.log(error.message)
+        handleError(error)
     }
 }
   
@@ -43,7 +43,7 @@ async function removeContact(contactId) {
             console.log(`Delete operation cannot be performed. There is no user with id ${contactId}`)
         }
     } catch (error) {
-        console.log(error.message)
+        handleError(error)
     }
 }
 
@@ -67,7 +67,7 @@ async function addContact(name, email, phone) {
             console.log(`${newContact.name} is already in your contacts`)
         }
     } catch (error) {
-        console.log(error.message)
+        handleError(error)
     }
 }
  
